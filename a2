@@ -1,0 +1,215 @@
+#include <stdio.h>
+#include<string.h>
+struct info
+{
+  char name[20];
+  int runs;
+  int age;
+  char country[20];
+  char ctgry[20];
+  float avgsc;
+  int wickets;
+ 
+  int twenty_20;
+  int odi;
+}p[20],swap; 
+void Batsman_C(int s,struct info p[s])
+{   char name[20];
+   printf("\nEnter name of a country: ");
+   scanf("%s",name);
+   int i,j,num=0;
+   for(i=0;i<s;i++)
+   {
+     if(!(strcmp(name,p[i].country)) && (!strcmp(p[i].ctgry,"BATSMAN") || !strcmp(p[i].ctgry,"ALL_ROUNDER") ))
+     {
+          num++;
+     }
+   }
+   printf("\nNumber of batsman from %s are %d",name,num);
+
+
+}
+
+
+void sort(int s,struct info p[s])
+{
+  int i,j;
+  for(i=0;i<s-1;i++)
+  {
+    for(j=0;j<s-1-i;j++)
+    {
+            if(p[j].avgsc > p[j+1].avgsc)
+            {
+              swap=p[j];
+              p[j]=p[j+1];
+              p[j+1]=swap;
+            }
+            
+    }
+    
+
+  }
+  int n=1;
+  printf("SR.NO\tNAME\tSCORE\tAGE\t\tCOUNTRY\t\tODI\t\tTWENTY_20\t\tRUNS\n");
+ for(i=0;i<s;i++)
+ {
+   if(!strcmp(p[i].ctgry,"BATSMAN") || !strcmp(p[i].ctgry,"ALL_ROUNDER"))
+  {printf("%d  %s\t\t%2.f\t\t%d\t\t %s\t\t\t %d\t\t\t%d \t\t\t%d\n",n,p[i].name,p[i].avgsc,p[i].age,p[i].country,p[i].odi,p[i].twenty_20,p[i].runs);
+         n++;  
+  }
+ }
+  
+}
+
+
+
+void highest_avg(int s,struct info p[s])
+{
+     float max=p[0].avgsc;
+    int i,h=0;
+    for(i=0;i<s;i++){
+     if(max<p[i].avgsc)
+     {
+         max=p[i].avgsc;
+         h=i;
+     }
+
+
+    }
+printf("\nBatsman with highest avg score is %s with score of %2.f",p[h].name,max);
+}
+
+
+void  Bowlers_C(int s,struct info p[s])
+{
+   char name[20];
+   printf("\nEnter name of a country: ");
+   scanf("%s",name);
+   int i,j,num=0;
+   for(i=0;i<s;i++)
+   {
+     if(!(strcmp(name,p[i].country)) && (!strcmp(p[i].ctgry,"BOWLER") || !strcmp(p[i].ctgry,"ALL_ROUNDER") ))
+     {
+          num++;
+     }
+   }
+   printf("\nNumber of bowlers from %s are %d",name,num);
+}
+void  max_wicket(int s,struct info p[s])
+{
+   int max=p[0].wickets;
+   int i,h;
+   for(i=0;i<s;i++)
+   {
+     if(max<p[i].wickets)
+     {
+       max=p[i].wickets;
+        h=i;
+     }
+     
+   }
+   printf("\nBowler with highest num of wickets is %s with %d wickets",p[h].name,max);
+}
+void parti_player(int s,struct info p[s])
+{ char name[20];
+int i,j,f;
+  printf("\nEnter name of a player:");
+  scanf("%s",name);
+  for(i=0;i<s;i++)
+  {
+    if(strcmp(name,p[i].name)==0)
+    {
+         f=i;  
+         break;
+    }
+  }
+  printf("\nInfo of the player\n");
+  printf("\nName: %s\n AGE: %d\nCountry: %s\nCategory: %s\nWickets taken: %d\n ODI'S PLAYED: %d \n 20-20's played: %d\n Avg_score: %2.f",p[f].name,p[f].age,p[f].country,p[f].ctgry,p[f].wickets,p[f].odi,p[f].twenty_20,p[f].avgsc);
+
+}
+
+void display(int s,struct info p[s])
+{
+  int i,n=1;
+  printf("SR.NO\tNAME\tSCORE\tAGE\t\tCOUNTRY\t\tODI\t\tTWENTY_20\t\tRUNS\tCATEGORY\n");
+ for(i=0;i<s;i++)
+ {
+  
+  {
+    printf("%d  %s\t\t%2.f\t\t%d\t\t %s\t\t\t %d\t\t\t%d \t\t\t%d\t\t%s\n",i+1,p[i].name,p[i].avgsc,p[i].age,p[i].country,p[i].odi,p[i].twenty_20,p[i].runs,p[i].ctgry);
+        
+  }
+ }
+
+  
+}
+int main(void) {
+  int n,i,c=1;
+  printf("Enter number of players: \n");
+  scanf("%d",&n);
+  for(i=0;i<n;i++)
+  {
+    printf("Info of Player %d",(i+1));
+     printf("\nName:\n ");
+    scanf("%s",p[i].name);
+     printf("Age:\n ");
+    scanf("%d",&p[i].age);
+     printf("Country:\n ");
+    scanf("%s",p[i].country);
+     printf("Category\n 1)BATSMAN \n2)BOWLER \n3)ALL_ROUNDER:\n ");
+     scanf("%s",p[i].ctgry);
+     if(strcmp(p[i].ctgry,"BOWLER")==0 || strcmp( p[i].ctgry,"ALL_ROUNDER")==0)
+     {
+       printf("WICKETS TAKEN: \n");
+     scanf("%d",&p[i].wickets);
+     }
+     else p[i].wickets=0;
+    printf("ODI's Played: \n");
+     scanf("%d",&p[i].odi);
+       printf("20-20's played:\n ");
+     scanf("%d",&p[i].twenty_20);
+      if(strcmp(p[i].ctgry,"BATSMAN")==0 || strcmp( p[i].ctgry,"ALL_ROUNDER")==0)
+      {
+     printf("AVG SCORE:\n ");
+     scanf("%f",&p[i].avgsc);
+      }
+ else p[i].avgsc=0;
+    printf("RUNS: \n");
+     scanf("%d",&p[i].runs);
+    }
+  while(c!=0){
+  printf("\nEnter\n 1)NUMBER OF BATSMAN OF A PARTICULAR COUNTRY\n2)Player with sorted avg score \n3)BATSMAN WITH HIGHEST AVG SCORE \n 4)NUMBER OF BOWLERS OF A PARTICULAR COUNTRY\n5)Bowler that has taken max number of wickets\n6)To display info \n7)DISPLAY INFO OF A PARTICULAR PLAYER\n 8)exit\n");
+   scanf("%d",&c);
+  switch(c)
+  {
+    case 1:
+     Batsman_C(i,p);
+      break;
+    case 2:
+      sort(i,p);
+      break;
+      case 3:
+           highest_avg(i,p);
+      break;
+      case 4:
+         Bowlers_C(i,p);
+         break;
+      case 5:
+         max_wicket(i,p);
+         break;
+      
+    case 6:
+       display(i,p);
+       break;
+       case 7:
+     parti_player(i,p);
+     break;
+     case 8:
+      return 0;
+    default:
+         printf("\nEnter a valid number\n");
+
+  }
+  }
+
+}
